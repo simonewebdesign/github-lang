@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title GitHub user's favourite language
+
+  body
+    h1 Favourite language
+
+    form
+      label GitHub handle:
+      input name='user' placeholder='e.g. defunkt'
+      input type='submit'
+
+    - if !params[:user].nil?
+      p
+        - if !language.nil?
+          = "#{params[:user]}'s favourite language is probably #{language}"
+        - else
+          | No user found.
