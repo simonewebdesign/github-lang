@@ -50,4 +50,8 @@ class GitHub
 
     languages_counter.sort_by {|_,v| v}.reverse[0][0]
   end
+
+  def self.valid_username?(username)
+    return username =~ /^[a-z0-9_-]+$/i
+  end
 end
