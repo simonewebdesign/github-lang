@@ -8,7 +8,10 @@ class GitHub
     
     response = RestClient.get("https://api.github.com/users/#{owner}/repos") do |response, request, result|
       return nil if response.code != 200
+
       repos = JSON.parse(response.to_str)
+      return nil if repos.count <= 0
+
       repos.each do |repo|
     
         lang = repo['language']
