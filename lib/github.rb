@@ -6,17 +6,19 @@ class GitHub
   def self.get_language(owner)
     languages_counter = {}
     
-    response = RestClient.get("https://api.github.com/users/#{owner}/repos")
-    repos = JSON.parse(response.to_str)
-    repos.each do |repo|
+    response = RestClient.get("https://api.github.com/users/#{owner}/repos") do |response, request, result|
+      return false if response.code != 200
+      repos = JSON.parse(response.to_str)
+      repos.each do |repo|
     
-      lang = repo['language']
+        lang = repo['language']
 
-      if !lang.nil?
-        if languages_counter.key?(lang)
-          languages_counter[lang] = languages_counter[lang] + 1
-        else
-          languages_counter[lang] = 1
+        if !lang.nil?
+          if languages_counter.key?(lang)
+            languages_counter[lang] = languages_counter[lang] + 1
+          else
+            languages_counter[lang] = 1
+          end
         end
       end
     end
