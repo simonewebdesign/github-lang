@@ -7,7 +7,7 @@ class GitHub
     languages_counter = {}
     
     response = RestClient.get("https://api.github.com/users/#{owner}/repos") do |response, request, result|
-      return false if response.code != 200
+      return nil if response.code != 200
       repos = JSON.parse(response.to_str)
       repos.each do |repo|
     
